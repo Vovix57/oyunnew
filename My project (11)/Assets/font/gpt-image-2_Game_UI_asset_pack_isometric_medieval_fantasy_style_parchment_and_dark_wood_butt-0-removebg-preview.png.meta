@@ -1,0 +1,947 @@
+fileFormatVersion: 2
+guid: 4105f2296cb96d047b3d24b6f17f07d3
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_0
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 318
+        width: 144
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fa523b21c6c51c44868b5ea56560321
+      internalID: 48341069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_1
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 284
+        width: 65
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc0e7df62cbe3284ab92ee786abf29a5
+      internalID: 437325367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_2
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 285
+        width: 64
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fa76f38ce12c4e42b7a9eb7d74b91f9
+      internalID: 1304821585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_3
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 284
+        width: 66
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6e19c386141e264cb153b20d2af6fcd
+      internalID: 1392956961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_4
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 285
+        width: 65
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26f5a0d78c30d234ca36c1bcd32c233e
+      internalID: 1834370515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_5
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 299
+        width: 192
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33e7126fb7dcdd84f8dc011f2a14a555
+      internalID: -470613131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_6
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 271
+        width: 143
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e47ee82572394a408469800ee2e093e
+      internalID: -598920473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_7
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 215
+        width: 58
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17c50dfeec6b91846b2f0612e687d4e3
+      internalID: -1778313981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_8
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 215
+        width: 58
+        height: 57
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa5ffbecc87fec94bb70c004b119b60e
+      internalID: -1750103662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_9
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 215
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a684a41f05c669d46acc04bae172c9b6
+      internalID: 371742242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_10
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 215
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1547685cc21c384eb7d72c248f5066a
+      internalID: 2131934172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_11
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 239
+        width: 188
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c25b3227c32b9e4e8cffd9fc38bfbce
+      internalID: 298286713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_12
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 224
+        width: 143
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c84747c441342543ba94edb101fdc05
+      internalID: -2064857680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_13
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 190
+        width: 172
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c00cc629eb987824990d3231d7c371b4
+      internalID: -1295490758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_14
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 178
+        width: 143
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90b54d900077ca14cafe720d2cdaebc5
+      internalID: 97037563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_15
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 160
+        width: 144
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f6bdd288f74e4442a7cb34ae4ea2619
+      internalID: -950827867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_16
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 160
+        width: 148
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d92f2af659b00f4fa18217f4521264e
+      internalID: -1819353521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_17
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 130
+        width: 144
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 633922f93c55091438f7a56d80679ce1
+      internalID: -832779110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_18
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 66
+        width: 145
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 841bf826752223e4bb18902923679404
+      internalID: -1586380774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_19
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 67
+        width: 135
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 236b325be782dca429dcb3c1d432376a
+      internalID: 1804909107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_20
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 139
+        width: 172
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9fd3a4a04b90a6469901e725b87391d
+      internalID: -508934046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_21
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 78
+        width: 143
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3664ee0eb9929de4794517f3095ece6a
+      internalID: -552283217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_22
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 76
+        width: 173
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4714c4d27f1b1c2478315fcba33b5770
+      internalID: -1744709110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_23
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 24
+        width: 42
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d2f1cc308719734fa5aee155aedb0d1
+      internalID: 847282277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_24
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 24
+        width: 41
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5609853981d77984b9a75a5d8bce8878
+      internalID: -428589858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_25
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 24
+        width: 41
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d2a3670bed5f6e4ebb5c49ac00d13cd
+      internalID: -1026271446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_26
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 24
+        width: 41
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a02c8d76771142348bcd28332fa17ca1
+      internalID: -913936697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_27
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 24
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 791a6a8348d3c4f458e3356112098416
+      internalID: 1357559695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_28
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 24
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f62732b18faf234aaf00e5d774ddb0b
+      internalID: 1384880165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_29
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 24
+        width: 31
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fff90bb046dedc14a9c0979152912ada
+      internalID: 843043032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_30
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 24
+        width: 30
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a38c71fbdf3a2144fb0585c7fa75f049
+      internalID: 160416867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_31
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 24
+        width: 28
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7aa83c29db3745744b41e5e65d8cd58b
+      internalID: 327788583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_32
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 24
+        width: 29
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f0ed5a99c0dc7e408c99663e703ebca
+      internalID: -368635445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_33
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 24
+        width: 29
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7930a9393c74993448bec5472957d9eb
+      internalID: -1547944370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_34
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 25
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae242d49f27f36d44a7db5212c8e8307
+      internalID: -1683982677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_35
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 24
+        width: 173
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1012645081b602d41a9186e5ef4cde5b
+      internalID: 1728776462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 941ed4ef618300b42922553b5cfde7c4
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":548.0,"y":455.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_0: 48341069
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_1: 437325367
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_10: 2131934172
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_11: 298286713
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_12: -2064857680
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_13: -1295490758
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_14: 97037563
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_15: -950827867
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_16: -1819353521
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_17: -832779110
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_18: -1586380774
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_19: 1804909107
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_2: 1304821585
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_20: -508934046
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_21: -552283217
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_22: -1744709110
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_23: 847282277
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_24: -428589858
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_25: -1026271446
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_26: -913936697
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_27: 1357559695
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_28: 1384880165
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_29: 843043032
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_3: 1392956961
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_30: 160416867
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_31: 327788583
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_32: -368635445
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_33: -1547944370
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_34: -1683982677
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_35: 1728776462
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_4: 1834370515
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_5: -470613131
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_6: -598920473
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_7: -1778313981
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_8: -1750103662
+      gpt-image-2_Game_UI_asset_pack_isometric_medieval_fantasy_style_parchment_and_dark_wood_butt-0-removebg-preview_9: 371742242
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -79,17 +79,38 @@ public class KusatmaYoneticisi : MonoBehaviour
     void Start()
     {
         EkraniGuncelle();
+
+        // YENİ: Oyun başladığında ana menü ekrandaysa zamanı tamamen durdur (Müzik için hazırlık)
+        if (anaMenuPaneli != null && anaMenuPaneli.activeSelf)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+
         if (komutanPaneli != null && anaMenuPaneli == null) komutanPaneli.SetActive(true);
     }
 
     public void OyunaBasla()
     {
+        // YENİ: Başla butonuna basıldığında zamanı normal akışına döndür
+        Time.timeScale = 1f;
+
         if (anaMenuPaneli != null) anaMenuPaneli.SetActive(false);
         if (komutanPaneli != null) komutanPaneli.SetActive(true);
     }
 
     public void KomutanSec(int secim) { komutan = secim; if (komutanPaneli != null) komutanPaneli.SetActive(false); EkraniGuncelle(); }
-    public void OyunuYenidenBaslat() { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); }
+
+    public void OyunuYenidenBaslat()
+    {
+        // YENİ: Oyun yeniden başladığında donuk kalmaması için zamanı 1 yapıyoruz
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void OyundanCik() { Application.Quit(); }
     public void AtolyePaneliniAc() { if ((anaMenuPaneli != null && anaMenuPaneli.activeSelf) || (komutanPaneli != null && komutanPaneli.activeSelf) || gorevPaneli.activeSelf || sonucPaneli.activeSelf || kacakciPaneli.activeSelf || olayPaneli.activeSelf || tayinPaneli.activeSelf) return; atolyePaneli.SetActive(true); }
     public void AtolyePaneliniKapat() { atolyePaneli.SetActive(false); }
@@ -437,7 +458,18 @@ public class KusatmaYoneticisi : MonoBehaviour
     }
 
     public void PaneliKapat() { gorevPaneli.SetActive(false); }
-    public void SonucPaneliniKapat() { SiradakiRaporuGoster(); }
+    public void SonucPaneliniKapat()
+    {
+        // YENİ: Eğer oyun bittiyse (kaybettik veya kazandık), tamama basınca oyunu sıfırla (Ana menüye dön)
+        if (oyunBittiMi)
+        {
+            OyunuYenidenBaslat();
+            return;
+        }
+
+        // Oyun bitmediyse sıradaki raporu göstermeye devam et
+        SiradakiRaporuGoster();
+    }
     public void SiradakiRaporuGoster() { if (oyunBittiMi) return; if (raporBasliklari.Count > 0) { sonucBaslikText.text = raporBasliklari[0]; sonucDetayText.text = raporMetinleri[0]; raporBasliklari.RemoveAt(0); raporMetinleri.RemoveAt(0); sonucPaneli.SetActive(true); } else { sonucPaneli.SetActive(false); if (bekleyenKararSayisi > 0) GunlukKararGoster(); } }
     public void GoreveOnayVer() { if (secilenNokta != null && secilenNokta.islemde == false) { if (bostaAsker >= secilenNokta.gerekenAdam) { bostaAsker -= secilenNokta.gerekenAdam; secilenNokta.GoreviBaslat(); EkraniGuncelle(); PaneliKapat(); } else gorevDetayText.text = "<color=red>Yeterli boşta askerin yok!</color>"; } }
     public void EkraniGuncelle() { if (kaynakTexti != null) kaynakTexti.text = "📅 Gün: " + turSayisi + "  |  ❤️ Moral: " + moral + "  |  ⚔️ Asker: " + bostaAsker + "/" + toplamAsker + " (<color=red>Yaralı: " + yaraliAsker + "</color>)  |  🍞 Yemek: " + yemek + "  |  🪵 Odun: " + odun + "  |  🧱 Taş: " + tas + "  |  ⛓️ Demir: " + demir + "  |  💰 Altın: " + altin; }
