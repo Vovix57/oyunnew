@@ -18,6 +18,12 @@ public class KusatmaYoneticisi : MonoBehaviour
     public int odun = 50;
     public int tas = 20;
     public int altin = 20;
+    public int demir = 0;
+
+    [Header("Kıtlık Sayaçları (YENİ)")]
+    public int yemekSifirGun = 0;
+    public int odunSifirGun = 0;
+    public int tasSifirGun = 0;
 
     [Header("Gelişmiş Mekanikler")]
     public int komutan = 0;
@@ -25,14 +31,25 @@ public class KusatmaYoneticisi : MonoBehaviour
     public bool karantinaYapildi = false;
     public int bekleyenKararSayisi = 0;
     private int aktifKararID = 0;
-
-    // YENİ: Oyunun son karşılaştığı olayları aklında tutacağı liste
     private List<int> sonYasananKararlar = new List<int>();
+
+    private bool ilkTasKesfi = false;
+    private bool ilkOdunKesfi = false;
+    private bool ilkYemekKesfi = false;
+    private bool ilkGozcuKesfi = false;
+    private bool ilkDemirKesfi = false;
 
     [Header("Atölye Geliştirmeleri")]
     public bool elArabasiAlindi = false;
     public bool surGuclendirildi = false;
     public bool mahzenYapildi = false;
+    public bool zirhliBirliklerAlindi = false;
+    public bool sobaYapildi = false;
+    public bool gozetlemeKulesiYapildi = false;
+
+    [Header("Harita Keşfi")]
+    public GameObject yeniBolgeObjeleri;
+    public GameObject kesifNoktasiObjesi;
 
     [Header("Arayüz (UI) Bağlantıları")]
     public TextMeshProUGUI kaynakTexti;
@@ -46,8 +63,8 @@ public class KusatmaYoneticisi : MonoBehaviour
     public GameObject olayPaneli; public TextMeshProUGUI olayText; public GameObject onarButonu;
     public TextMeshProUGUI onarButonText; public TextMeshProUGUI riskButonText;
     public GameObject tayinPaneli;
-    public GameObject atolyePaneli; public GameObject arabaButonu; public GameObject surButonu; public GameObject mahzenButonu;
-    public GameObject karantinaButonu;
+    public GameObject atolyePaneli; public GameObject arabaButonu; public GameObject surButonu; public GameObject mahzenButonu; public GameObject karantinaButonu;
+    public GameObject zirhButonu; public GameObject sobaButonu; public GameObject kuleButonu;
 
     private KaynakNoktasi secilenNokta;
     private List<string> raporBasliklari = new List<string>();
@@ -71,27 +88,20 @@ public class KusatmaYoneticisi : MonoBehaviour
         if (komutanPaneli != null) komutanPaneli.SetActive(true);
     }
 
-    public void KomutanSec(int secim)
-    {
-        komutan = secim;
-        if (komutanPaneli != null) komutanPaneli.SetActive(false);
-        EkraniGuncelle();
-    }
-
+    public void KomutanSec(int secim) { komutan = secim; if (komutanPaneli != null) komutanPaneli.SetActive(false); EkraniGuncelle(); }
     public void OyunuYenidenBaslat() { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); }
     public void OyundanCik() { Application.Quit(); }
-
-    public void AtolyePaneliniAc()
-    {
-        if ((anaMenuPaneli != null && anaMenuPaneli.activeSelf) || (komutanPaneli != null && komutanPaneli.activeSelf) || gorevPaneli.activeSelf || sonucPaneli.activeSelf || kacakciPaneli.activeSelf || olayPaneli.activeSelf || tayinPaneli.activeSelf) return;
-        atolyePaneli.SetActive(true);
-    }
+    public void AtolyePaneliniAc() { if ((anaMenuPaneli != null && anaMenuPaneli.activeSelf) || (komutanPaneli != null && komutanPaneli.activeSelf) || gorevPaneli.activeSelf || sonucPaneli.activeSelf || kacakciPaneli.activeSelf || olayPaneli.activeSelf || tayinPaneli.activeSelf) return; atolyePaneli.SetActive(true); }
     public void AtolyePaneliniKapat() { atolyePaneli.SetActive(false); }
 
     public void ElArabasiSatinAl() { int bedel = (komutan == 1) ? 75 : 100; if (!elArabasiAlindi && odun >= bedel) { odun -= bedel; elArabasiAlindi = true; arabaButonu.SetActive(false); EkraniGuncelle(); } }
     public void SurGuclendir() { int bedel = (komutan == 1) ? 75 : 100; if (!surGuclendirildi && tas >= bedel) { tas -= bedel; surGuclendirildi = true; surButonu.SetActive(false); EkraniGuncelle(); } }
     public void MahzenInsaEt() { int bedel = (komutan == 1) ? 60 : 80; if (!mahzenYapildi && tas >= bedel && odun >= bedel) { tas -= bedel; odun -= bedel; mahzenYapildi = true; mahzenButonu.SetActive(false); EkraniGuncelle(); } }
     public void KarantinaInsaEt() { int bedel = (komutan == 1) ? 35 : 50; if (!karantinaYapildi && tas >= bedel && odun >= bedel) { tas -= bedel; odun -= bedel; karantinaYapildi = true; karantinaButonu.SetActive(false); EkraniGuncelle(); } }
+
+    public void ZirhSatinAl() { int bedel = (komutan == 1) ? 35 : 50; if (!zirhliBirliklerAlindi && demir >= bedel) { demir -= bedel; zirhliBirliklerAlindi = true; zirhButonu.SetActive(false); EkraniGuncelle(); } }
+    public void SobaInsaEt() { int bedel = (komutan == 1) ? 30 : 40; if (!sobaYapildi && demir >= bedel && odun >= bedel) { demir -= bedel; odun -= bedel; sobaYapildi = true; sobaButonu.SetActive(false); EkraniGuncelle(); } }
+    public void KuleInsaEt() { int bedelTas = (komutan == 1) ? 35 : 50; int bedelOdun = (komutan == 1) ? 20 : 30; if (!gozetlemeKulesiYapildi && tas >= bedelTas && odun >= bedelOdun) { tas -= bedelTas; odun -= bedelOdun; gozetlemeKulesiYapildi = true; kuleButonu.SetActive(false); EkraniGuncelle(); } }
 
     public void GunuBitir()
     {
@@ -105,13 +115,31 @@ public class KusatmaYoneticisi : MonoBehaviour
     public void TayinSec(int secim)
     {
         tayinPaneli.SetActive(false); turSayisi++;
-
         bekleyenKararSayisi = Random.Range(1, 3);
+
+        // YENİ: PASİF KAYNAK TÜKETİMİ (Her gün harcanır)
+        int gunlukOdunTuketimi = sobaYapildi ? 1 : 3; // Soba varsa odun tasarrufu
+        odun -= gunlukOdunTuketimi;
+        tas -= 2; // Surların ufak tefek yamaları
 
         if (secim == 0) { yemek -= 5; moral -= 10; }
         else if (secim == 1) { yemek -= 10; }
         else if (secim == 2) { yemek -= 20; moral += 10; }
         else if (secim == 3) { moral -= 30; }
+
+        // Kaynaklar eksiye düşmesin
+        if (odun < 0) odun = 0;
+        if (tas < 0) tas = 0;
+        if (yemek < 0) { yemek = 0; moral -= 20; raporBasliklari.Add("⚠️ AÇLIK BAŞLADI!"); raporMetinleri.Add("Kalede yiyecek kalmadı! İsyan sesleri yükseliyor."); }
+
+        // YENİ: İSYAN SAYAÇLARI KONTROLÜ (2 Gün 0'da kalırsa oyun biter!)
+        if (yemek == 0) yemekSifirGun++; else yemekSifirGun = 0;
+        if (odun == 0) odunSifirGun++; else odunSifirGun = 0;
+        if (tas == 0) tasSifirGun++; else tasSifirGun = 0;
+
+        if (yemekSifirGun >= 2) { OyunSonu(false, "Kalede günlerdir yiyecek yok! Askerler açlıktan isyan çıkardı ve kaleyi yağmaladı. KAYBETTİNİZ..."); return; }
+        if (odunSifirGun >= 2) { OyunSonu(false, "Günlerdir ateş yakılamıyor! Askerler donmamak için isyan edip kaleyi terk etti. KAYBETTİNİZ..."); return; }
+        if (tasSifirGun >= 2) { OyunSonu(false, "Surlardaki gedikler günlerdir onarılamadı! Düşman bu zayıflıktan faydalanıp içeri sızdı ve herkesi kesti. KAYBETTİNİZ..."); return; }
 
         if (komutan == 2 && yaraliAsker > 0) { yaraliAsker--; bostaAsker++; raporBasliklari.Add("✨ Şifacının Lütfu"); raporMetinleri.Add("Şifacı komutanımız 1 yaralı askerimizi tamamen iyileştirdi."); }
 
@@ -123,13 +151,12 @@ public class KusatmaYoneticisi : MonoBehaviour
             if (olenYarali > 0) { yaraliAsker -= olenYarali; toplamAsker -= olenYarali; raporBasliklari.Add("☠️ Hastane"); raporMetinleri.Add("<color=red>" + olenYarali + " yaralı</color> can verdi..."); }
         }
 
-        if (yaraliAsker >= 3 && !karantinaYapildi && bostaAsker > 0)
+        if (yaraliAsker >= 2 && !karantinaYapildi && bostaAsker > 0)
         {
             if (Random.Range(1, 101) <= 40) { bostaAsker--; yaraliAsker++; raporBasliklari.Add("🦠 SALGIN YAYILIYOR!"); raporMetinleri.Add("Karantina Çadırımız yok! <color=red>1 sağlıklı asker daha yatağa düştü.</color>"); }
         }
 
         if (mancinikSaboteTuru > 0) mancinikSaboteTuru--;
-        if (yemek < 0) { yemek = 0; moral -= 20; raporBasliklari.Add("⚠️ AÇLIK BAŞLADI!"); raporMetinleri.Add("Kalede yiyecek kalmadı! İsyan sesleri yükseliyor."); }
         if (moral > 100) moral = 100;
 
         if (moral <= 0) { OyunSonu(false, "Moral sıfıra indi! Askerler isyan çıkardı. KAYBETTİNİZ..."); return; }
@@ -142,10 +169,10 @@ public class KusatmaYoneticisi : MonoBehaviour
         foreach (KaynakNoktasi nokta in haritadakiNoktalar) { nokta.TurAtla(); }
 
         if (kacakciGemisiObje != null) kacakciGemisiObje.SetActive(false); if (kacakciPaneli != null) kacakciPaneli.SetActive(false);
-        if (Random.Range(1, 101) <= 30) { YeniKacakciTeklifiOlustur(); if (kacakciGemisiObje != null) kacakciGemisiObje.SetActive(true); }
+        int kacakciSansi = gozetlemeKulesiYapildi ? 50 : 30;
+        if (Random.Range(1, 101) <= kacakciSansi) { YeniKacakciTeklifiOlustur(); if (kacakciGemisiObje != null) kacakciGemisiObje.SetActive(true); }
 
-        EkraniGuncelle();
-        RastgeleOlayTetikle();
+        EkraniGuncelle(); RastgeleOlayTetikle();
     }
 
     public void OyunSonu(bool kazandiMi, string mesaj)
@@ -158,82 +185,48 @@ public class KusatmaYoneticisi : MonoBehaviour
     public void FinalKusatmasiniTetikle()
     {
         aktifOlayTipi = "Final"; olayPaneli.SetActive(true);
-        olayText.text = "⚔️ <color=red>SON HÜCUM!</color>\n\nUfukta Kraliyet Ordusu göründü! Ancak düşman bunu fark etti ve gitmeden önce kaleyi yıkmak için TÜM GÜCÜYLE saldırıyor!\n\nGereken: <color=orange>80 Taş ve 80 Odun</color>\n\nEğer yeterli malzemen yoksa, askerlerine <color=red>ÖLÜMÜNE SAVAŞ</color> emri vermek zorundasın!";
-        onarButonu.SetActive(tas >= 80 && odun >= 80);
-        if (onarButonText != null) onarButonText.text = "Surları Kur\n(-80 Taş/Odun)"; if (riskButonText != null) riskButonText.text = "Ölümüne Savaş\n(15 Asker Feda Et)";
+        int finalTasBedeli = gozetlemeKulesiYapildi ? 50 : 80; int finalOdunBedeli = gozetlemeKulesiYapildi ? 50 : 80;
+        olayText.text = "⚔️ <color=red>SON HÜCUM!</color>\n\nUfukta Kraliyet Ordusu göründü! Ancak düşman bunu fark etti ve gitmeden önce kaleyi yıkmak için TÜM GÜCÜYLE saldırıyor!\n\nGereken: <color=orange>" + finalTasBedeli + " Taş ve " + finalOdunBedeli + " Odun</color>\n\nEğer yeterli malzemen yoksa, askerlerine <color=red>ÖLÜMÜNE SAVAŞ</color> emri vermek zorundasın!";
+        onarButonu.SetActive(tas >= finalTasBedeli && odun >= finalOdunBedeli);
+        if (onarButonText != null) onarButonText.text = "Surları Kur\n(-" + finalTasBedeli + " Taş/Odun)"; if (riskButonText != null) riskButonText.text = "Ölümüne Savaş\n(15 Asker Feda Et)";
         if (KameraTitreme.instance != null) KameraTitreme.instance.Titret(1f, 0.3f);
     }
 
     public void GunlukKararGoster()
     {
-        olayPaneli.SetActive(true);
-        aktifOlayTipi = "Karar";
-
-        // YENİ: Hafızalı (Cooldown) Zar Atma Sistemi
+        olayPaneli.SetActive(true); aktifOlayTipi = "Karar";
         int guvenlikSayaci = 0;
         do
         {
-            aktifKararID = Random.Range(1, 16);
-            guvenlikSayaci++;
-            // Sonsuz döngüye girmemesi için önlem
-            if (guvenlikSayaci > 50) break;
-        } while (sonYasananKararlar.Contains(aktifKararID));
+            aktifKararID = Random.Range(1, 21);
+            guvenlikSayaci++; if (guvenlikSayaci > 50) break;
+        } while (sonYasananKararlar.Contains(aktifKararID) || (sobaYapildi && aktifKararID == 11));
 
-        // Çıkan kararı hafızaya al
         sonYasananKararlar.Add(aktifKararID);
-        // Eğer hafızadaki karar sayısı 5'i geçtiyse, en eskisini unut
-        if (sonYasananKararlar.Count > 5)
-        {
-            sonYasananKararlar.RemoveAt(0);
-        }
+        if (sonYasananKararlar.Count > 5) sonYasananKararlar.RemoveAt(0);
 
         switch (aktifKararID)
         {
-            case 1:
-                olayText.text = "⛺ <color=yellow>HALKIN TALEBİ</color>\n\nBarınakların çatısı akıtıyor. İnsanlar hasta olacak. Onarmak için odun harcayalım mı?"; onarButonu.SetActive(odun >= 15);
-                if (onarButonText != null) onarButonText.text = "Onar (-15 Odun)"; if (riskButonText != null) riskButonText.text = "Umursama (-10 Moral)"; break;
-            case 2:
-                olayText.text = "💰 <color=yellow>GİZEMLİ TÜCCAR</color>\n\nSurlara yaklaşan bir tüccar, biraz erzak karşılığında bize yapı taşı verebileceğini söylüyor."; onarButonu.SetActive(yemek >= 15);
-                if (onarButonText != null) onarButonText.text = "Takas Et (-15 Yemek, +20 Taş)"; if (riskButonText != null) riskButonText.text = "Kov Gitsin (Bir şey olmaz)"; break;
-            case 3:
-                olayText.text = "🎲 <color=yellow>ASABİ ASKERLER</color>\n\nAskerler gece kumarda altınlarını kaybetmiş, çok gerginler. Onlara altın dağıtıp morallerini düzeltelim mi?"; onarButonu.SetActive(altin >= 10);
-                if (onarButonText != null) onarButonText.text = "Altın Dağıt (-10 Altın, +10 Moral)"; if (riskButonText != null) riskButonText.text = "Disiplin Cezası (-15 Moral)"; break;
-            case 4:
-                olayText.text = "🛒 <color=yellow>SAHİPSİZ KERVAN</color>\n\nSurların uzağında sahipsiz bir kervan bulduk. Çok erzak var ama bir tuzak da olabilir. Yağmalayalım mı?"; onarButonu.SetActive(true);
-                if (onarButonText != null) onarButonText.text = "Yağmala (+20 Yemek, -10 Moral)"; if (riskButonText != null) riskButonText.text = "Bulaşma (+5 Moral)"; break;
-            case 5:
-                olayText.text = "⛪ <color=yellow>RAHİPLERİN İSTEĞİ</color>\n\nKaledeki rahipler dua etmek için küçük bir sunak inşa etmek istiyor. Bizden taş talep ediyorlar."; onarButonu.SetActive(tas >= 15);
-                if (onarButonText != null) onarButonText.text = "İzin Ver (-15 Taş, +15 Moral)"; if (riskButonText != null) riskButonText.text = "Reddet (-15 Moral)"; break;
-            case 6:
-                olayText.text = "🎵 <color=yellow>GEZGİN OZAN</color>\n\nKampa neşeli bir ozan geldi. Ona biraz altın verirsek gece boyunca şarkı söyleyip herkese moral verecek."; onarButonu.SetActive(altin >= 5);
-                if (onarButonText != null) onarButonText.text = "Altın Ver (-5 Altın, +20 Moral)"; if (riskButonText != null) riskButonText.text = "Kapıdan Çevir (-5 Moral)"; break;
-            case 7:
-                olayText.text = "🥩 <color=yellow>ÇÜRÜK ERZAKLAR</color>\n\nAşçı, erzak deposunun bir kısmının küflendiğini söylüyor. Çürük kısımları çöpe mi atalım, yoksa risk alıp askerlere mi yedirelim?"; onarButonu.SetActive(yemek >= 15);
-                if (onarButonText != null) onarButonText.text = "Çöpe At (-15 Yemek)"; if (riskButonText != null) riskButonText.text = "Yedir (Hastalanma Riski!)"; break;
-            case 8:
-                olayText.text = "🏃‍♂️ <color=yellow>FİRARİ ASKER</color>\n\nGece karanlığında surlardan atlayıp kaçmaya çalışan bir asker yakaladık. Asalım mı, yoksa hapse mi atalım?"; onarButonu.SetActive(bostaAsker >= 1);
-                if (onarButonText != null) onarButonText.text = "İdam Et (-1 Asker, -10 Moral)"; if (riskButonText != null) riskButonText.text = "Hapse At (-20 Yemek)"; break;
-            case 9:
-                olayText.text = "👑 <color=yellow>GİZLİ ZULA</color>\n\nKazı yapan işçiler eski bir altın zulası buldu. Bu altınlara ordu adına el mi koyalım, yoksa işçilere mi bırakalım?"; onarButonu.SetActive(true);
-                if (onarButonText != null) onarButonText.text = "El Koy (+20 Altın, -15 Moral)"; if (riskButonText != null) riskButonText.text = "Halka Bırak (+15 Moral)"; break;
-            case 10:
-                olayText.text = "🐺 <color=yellow>YABANİ KÖPEKLER</color>\n\nAç kalmış köpekler kampa girdi. Askerler onları vurup yemek istiyor. İzin verelim mi, yoksa barınak mı yapalım?"; onarButonu.SetActive(true);
-                if (onarButonText != null) onarButonText.text = "Avla ve Ye (+15 Yemek, -5 Moral)"; if (riskButonText != null) riskButonText.text = "Barınak Yap (-10 Odun, +10 Moral)"; break;
-            case 11:
-                olayText.text = "❄️ <color=yellow>DONDURUCU SOĞUK</color>\n\nBu gece hava aniden buz kesti. Nöbetçiler donmamak için devasa ateşler yakmak istiyor."; onarButonu.SetActive(odun >= 20);
-                if (onarButonText != null) onarButonText.text = "İzin Ver (-20 Odun, +5 Moral)"; if (riskButonText != null) riskButonText.text = "Odunu Sakla (-15 Moral)"; break;
-            case 12:
-                olayText.text = "😷 <color=yellow>HASTALIKLI MÜLTECİ</color>\n\nSurlara yaklaşan hasta bir adam ilaç için altın yalvarıyor. Ona yardım edelim mi?"; onarButonu.SetActive(altin >= 10);
-                if (onarButonText != null) onarButonText.text = "İlaç Al (-10 Altın, +10 Moral)"; if (riskButonText != null) riskButonText.text = "Ok Atıp Kov (-10 Moral)"; break;
-            case 13:
-                olayText.text = "🚧 <color=yellow>ÇÖKEN BARİKAT</color>\n\nSurlardaki zayıf bir nokta kendi kendine çöktü. Hemen onarmak çok malzeme ister ama onarmazsak halk paniğe kapılır."; onarButonu.SetActive(odun >= 20 && tas >= 10);
-                if (onarButonText != null) onarButonText.text = "Acil Onar (-20 Odun, -10 Taş)"; if (riskButonText != null) riskButonText.text = "Beklet (-15 Moral)"; break;
-            case 14:
-                olayText.text = "🏅 <color=yellow>KAHRAMAN ASKER</color>\n\nNöbetçilerden biri tek başına sızmaya çalışan bir düşman casusunu hakladı. Onu altınla ödüllendirelim mi?"; onarButonu.SetActive(altin >= 15);
-                if (onarButonText != null) onarButonText.text = "Ödüllendir (-15 Altın, +20 Moral)"; if (riskButonText != null) riskButonText.text = "Sadece Tebrik Et (-5 Moral)"; break;
-            case 15:
-                olayText.text = "📜 <color=yellow>DÜŞMAN ELÇİSİ</color>\n\nDüşmandan gizli bir elçi geldi. Ona rüşvet verirsek bize biraz gizli erzak getirebileceğini söylüyor."; onarButonu.SetActive(altin >= 20);
-                if (onarButonText != null) onarButonText.text = "Rüşvet Ver (-20 Altın, +20 Yemek)"; if (riskButonText != null) riskButonText.text = "Kov Gitsin (+10 Moral)"; break;
+            case 1: olayText.text = "⛺ <color=yellow>HALKIN TALEBİ</color>\n\nBarınakların çatısı akıtıyor. İnsanlar hasta olacak. Lordum, onarmak için odun harcayalım mı?"; onarButonu.SetActive(odun >= 15); if (onarButonText != null) onarButonText.text = "Onar (-15 Odun)"; if (riskButonText != null) riskButonText.text = "Umursama (-10 Moral)"; break;
+            case 2: olayText.text = "💰 <color=yellow>GİZEMLİ TÜCCAR</color>\n\nSurlara yaklaşan bir tüccar, biraz erzak karşılığında bize yapı taşı verebileceğini söylüyor. Takas edelim mi?"; onarButonu.SetActive(yemek >= 15); if (onarButonText != null) onarButonText.text = "Takas Et (-15 Yemek, +20 Taş)"; if (riskButonText != null) riskButonText.text = "Kov Gitsin (Bir şey olmaz)"; break;
+            case 3: olayText.text = "🎲 <color=yellow>ASABİ ASKERLER</color>\n\nAskerler gece kumarda altınlarını kaybetmiş, çok gerginler. Lordum, hazineden onlara altın dağıtıp morallerini düzeltelim mi?"; onarButonu.SetActive(altin >= 10); if (onarButonText != null) onarButonText.text = "Altın Dağıt (-10 Altın, +10 Moral)"; if (riskButonText != null) riskButonText.text = "Kırbaçlat (-15 Moral)"; break;
+            case 4: olayText.text = "🛒 <color=yellow>SAHİPSİZ KERVAN</color>\n\nSurların uzağında sahipsiz bir kervan bulduk. Çok erzak var ama düşmanın bir tuzağı da olabilir. Yağmalamamızı emreder misiniz?"; onarButonu.SetActive(true); if (onarButonText != null) onarButonText.text = "Yağmala (+20 Yemek, -10 Moral)"; if (riskButonText != null) riskButonText.text = "Bulaşma (+5 Moral)"; break;
+            case 5: olayText.text = "⛪ <color=yellow>RAHİPLERİN İSTEĞİ</color>\n\nKaledeki rahipler dua etmek için küçük bir sunak inşa etmek istiyor. Bizden taş talep ediyorlar."; onarButonu.SetActive(tas >= 15); if (onarButonText != null) onarButonText.text = "İzin Ver (-15 Taş, +15 Moral)"; if (riskButonText != null) riskButonText.text = "Reddet (-15 Moral)"; break;
+            case 6: olayText.text = "🎵 <color=yellow>GEZGİN OZAN</color>\n\nKampa neşeli bir ozan geldi. Ona hazineden biraz altın verirsek gece boyunca şarkı söyleyip ordunuza moral verecek."; onarButonu.SetActive(altin >= 5); if (onarButonText != null) onarButonText.text = "Altın Ver (-5 Altın, +20 Moral)"; if (riskButonText != null) riskButonText.text = "Kapıdan Çevir (-5 Moral)"; break;
+            case 7: olayText.text = "🥩 <color=yellow>ÇÜRÜK ERZAKLAR</color>\n\nAşçı, erzak deposunun bir kısmının küflendiğini söylüyor. Lordum, çürük kısımları çöpe mi atalım, yoksa askerlere mi yedirelim?"; onarButonu.SetActive(yemek >= 15); if (onarButonText != null) onarButonText.text = "Çöpe At (-15 Yemek)"; if (riskButonText != null) riskButonText.text = "Yedir (Hastalanma Riski!)"; break;
+            case 8: olayText.text = "🏃‍♂️ <color=yellow>FİRARİ ASKER</color>\n\nGece karanlığında surlardan atlayıp kaçmaya çalışan bir asker yakaladık. Onu ibretialem için asalım mı, yoksa zindana mı atalım?"; onarButonu.SetActive(bostaAsker >= 1); if (onarButonText != null) onarButonText.text = "İdam Et (-1 Asker, -10 Moral)"; if (riskButonText != null) riskButonText.text = "Zindana At (-20 Yemek)"; break;
+            case 9: olayText.text = "👑 <color=yellow>GİZLİ ZULA</color>\n\nKazı yapan işçiler toprağın altında eski bir altın zulası buldu. Lordum, bu altınlara hazine adına el mi koyacaksınız?"; onarButonu.SetActive(true); if (onarButonText != null) onarButonText.text = "El Koy (+20 Altın, -15 Moral)"; if (riskButonText != null) riskButonText.text = "Halka Bırak (+15 Moral)"; break;
+            case 10: olayText.text = "🐺 <color=yellow>YABANİ KÖPEKLER</color>\n\nAç kalmış köpekler kampa girdi. Askerler onları vurup yemek istiyor. İzin verelim mi, yoksa onlar için barınak mı yapalım?"; onarButonu.SetActive(true); if (onarButonText != null) onarButonText.text = "Avla ve Ye (+15 Yemek, -5 Moral)"; if (riskButonText != null) riskButonText.text = "Barınak Yap (-10 Odun, +10 Moral)"; break;
+            case 11: olayText.text = "❄️ <color=yellow>DONDURUCU SOĞUK</color>\n\nBu gece hava aniden buz kesti. Nöbetçiler donmamak için kilerinizden devasa ateşler yakmak istiyor."; onarButonu.SetActive(odun >= 20); if (onarButonText != null) onarButonText.text = "İzin Ver (-20 Odun, +5 Moral)"; if (riskButonText != null) riskButonText.text = "Odunu Sakla (-15 Moral)"; break;
+            case 12: olayText.text = "😷 <color=yellow>HASTALIKLI MÜLTECİ</color>\n\nSurlara yaklaşan hasta bir adam ilaç için altın yalvarıyor. Lordum, hazineden ona yardım edelim mi?"; onarButonu.SetActive(altin >= 10); if (onarButonText != null) onarButonText.text = "İlaç Al (-10 Altın, +10 Moral)"; if (riskButonText != null) riskButonText.text = "Ok Atıp Kov (-10 Moral)"; break;
+            case 13: olayText.text = "🚧 <color=yellow>ÇÖKEN BARİKAT</color>\n\nSurlardaki zayıf bir nokta kendi kendine çöktü. Hemen onarmak çok malzeme ister ama emrinizle onarmazsak halk paniğe kapılır."; onarButonu.SetActive(odun >= 20 && tas >= 10); if (onarButonText != null) onarButonText.text = "Acil Onar (-20 Odun, -10 Taş)"; if (riskButonText != null) riskButonText.text = "Beklet (-15 Moral)"; break;
+            case 14: olayText.text = "🏅 <color=yellow>KAHRAMAN ASKER</color>\n\nNöbetçilerden biri tek başına sızmaya çalışan bir düşman casusunu hakladı. Onu hazineden altınla ödüllendirelim mi?"; onarButonu.SetActive(altin >= 15); if (onarButonText != null) onarButonText.text = "Ödüllendir (-15 Altın, +20 Moral)"; if (riskButonText != null) riskButonText.text = "Sadece Tebrik Et (-5 Moral)"; break;
+            case 15: olayText.text = "📜 <color=yellow>DÜŞMAN ELÇİSİ</color>\n\nDüşmandan gizli bir elçi geldi. Ona rüşvet verirsek bize biraz gizli erzak getirebileceğini söylüyor."; onarButonu.SetActive(altin >= 20); if (onarButonText != null) onarButonText.text = "Rüşvet Ver (-20 Altın, +20 Yemek)"; if (riskButonText != null) riskButonText.text = "Kov Gitsin (+10 Moral)"; break;
+            case 16: olayText.text = "🪵 <color=yellow>MİMARLARIN TALEBİ</color>\n\nKale mimarları, surların inşasını hızlandırmak için acil odun talep ediyor. Eğer verirsek, yedek taş depolarını kullanımımıza açacaklar."; onarButonu.SetActive(odun >= 20); if (onarButonText != null) onarButonText.text = "Depoyu Aç (-20 Odun, +20 Taş)"; if (riskButonText != null) riskButonText.text = "Reddet"; break;
+            case 17: olayText.text = "⛏️ <color=yellow>DERİN MADEN</color>\n\nMadenciler yorgunluktan bitap düştü. Kilerimizden onlara fazladan erzak ayırırsak, gece gündüz demeden çalışıp o zorlu demir damarını çıkaracaklarına yemin ediyorlar."; onarButonu.SetActive(yemek >= 20); if (onarButonText != null) onarButonText.text = "Erzak Dağıt (-20 Yemek, +15 Demir)"; if (riskButonText != null) riskButonText.text = "Sıradan Mesaiye Devam"; break;
+            case 18: olayText.text = "🏚️ <color=yellow>YIKIK MANCINIK</color>\n\nSurların dışında hasarlı bir düşman mancınığı var. Komutanım, etrafını taşla örüp güvene alırsak askerlerimiz onu güvenle parçalayıp odun elde edebilir."; onarButonu.SetActive(tas >= 15); if (onarButonText != null) onarButonText.text = "Parçalayın! (-15 Taş, +25 Odun)"; if (riskButonText != null) riskButonText.text = "Risk Almaya Değmez"; break;
+            case 19: olayText.text = "🍞 <color=yellow>KARABORSACI</color>\n\nKalede gizli erzak stoku olan bir fırsatçı tüccar, fahiş bir fiyata bu erzakları size satmayı teklif ediyor. Unutmayın, burada tek kanun sizsiniz!"; onarButonu.SetActive(altin >= 15); if (onarButonText != null) onarButonText.text = "Satın Al (-15 Altın, +30 Yemek)"; if (riskButonText != null) riskButonText.text = "İdam Et ve El Koy (+30 Yemek, -40 Moral)"; break;
+            case 20: olayText.text = "⚔️ <color=yellow>PARALI ASKERLER</color>\n\nKuşatmada bize yardıma gelen elit paralı askerler, zırhlarını onarmak için kalemizin demirini talep ediyor. Karşılığında sandık dolusu altın sunuyorlar."; onarButonu.SetActive(demir >= 10); if (onarButonText != null) onarButonText.text = "Anlaşmayı Kabul Et (-10 Demir, +20 Altın)"; if (riskButonText != null) riskButonText.text = "Demiri Sakla"; break;
         }
     }
 
@@ -258,12 +251,16 @@ public class KusatmaYoneticisi : MonoBehaviour
                 case 13: odun -= 20; tas -= 10; break;
                 case 14: altin -= 15; moral += 20; break;
                 case 15: altin -= 20; yemek += 20; break;
+                case 16: odun -= 20; tas += 20; break;
+                case 17: yemek -= 20; demir += 15; break;
+                case 18: tas -= 15; odun += 25; break;
+                case 19: altin -= 15; yemek += 30; break;
+                case 20: demir -= 10; altin += 20; break;
             }
-            KararSonrasiKontrol();
-            return;
+            KararSonrasiKontrol(); return;
         }
 
-        if (aktifOlayTipi == "Final") { tas -= 80; odun -= 80; olayPaneli.SetActive(false); OyunSonu(true, "Kusursuz Savunma! Güçlü surlarımız düşman dalgasını kırdı. Kraliyet ordusu yetişti ve kuşatma sona erdi. KAHRAMANSINIZ!"); return; }
+        if (aktifOlayTipi == "Final") { int finalTasBedeli = gozetlemeKulesiYapildi ? 50 : 80; int finalOdunBedeli = gozetlemeKulesiYapildi ? 50 : 80; tas -= finalTasBedeli; odun -= finalOdunBedeli; olayPaneli.SetActive(false); OyunSonu(true, "Kusursuz Savunma! Güçlü surlarımız düşman dalgasını kırdı. Kraliyet ordusu yetişti ve kuşatma sona erdi. KAHRAMANSINIZ!"); return; }
         if (aktifOlayTipi == "Tas") tas -= gerekenKaynakMiktari;
         else if (aktifOlayTipi == "Odun") odun -= gerekenKaynakMiktari;
         else if (aktifOlayTipi == "Yemek") yemek -= gerekenKaynakMiktari;
@@ -284,9 +281,7 @@ public class KusatmaYoneticisi : MonoBehaviour
                 case 4: moral += 5; break;
                 case 5: moral -= 15; break;
                 case 6: moral -= 5; break;
-                case 7:
-                    if (bostaAsker > 0) { bostaAsker--; yaraliAsker++; moral -= 10; }
-                    break;
+                case 7: if (bostaAsker > 0) { bostaAsker--; yaraliAsker++; moral -= 10; } if (!karantinaYapildi && Random.Range(1, 101) <= 50) { if (bostaAsker > 0) { bostaAsker--; yaraliAsker++; } } break;
                 case 8: yemek -= 20; break;
                 case 9: moral += 15; break;
                 case 10: odun -= 10; moral += 10; break;
@@ -295,9 +290,13 @@ public class KusatmaYoneticisi : MonoBehaviour
                 case 13: moral -= 15; break;
                 case 14: moral -= 5; break;
                 case 15: moral += 10; break;
+                case 16: break;
+                case 17: break;
+                case 18: break;
+                case 19: yemek += 30; moral -= 40; if (KameraTitreme.instance != null) KameraTitreme.instance.Titret(0.5f, 0.25f); break;
+                case 20: break;
             }
-            KararSonrasiKontrol();
-            return;
+            KararSonrasiKontrol(); return;
         }
 
         olayPaneli.SetActive(false);
@@ -312,8 +311,7 @@ public class KusatmaYoneticisi : MonoBehaviour
 
     private void KararSonrasiKontrol()
     {
-        bekleyenKararSayisi--;
-        EkraniGuncelle();
+        bekleyenKararSayisi--; EkraniGuncelle();
         if (moral <= 0) { OyunSonu(false, "Moral sıfıra indi! Askerler isyan çıkardı. KAYBETTİNİZ..."); return; }
         if (bekleyenKararSayisi > 0) GunlukKararGoster(); else olayPaneli.SetActive(false);
     }
@@ -329,40 +327,118 @@ public class KusatmaYoneticisi : MonoBehaviour
         if (olayTipiZari <= 35) { if (mancinikSaboteTuru > 0) { raporBasliklari.Insert(0, "🛡️ Sessiz Gece"); raporMetinleri.Insert(0, "Düşman mancınıklarını yaktığımız için bu gece güvendeyiz!"); olayPaneli.SetActive(false); SiradakiRaporuGoster(); return; } aktifOlayTipi = "Tas"; gerekenKaynakMiktari = surGuclendirildi ? 15 : 30; olayText.text = "🔥 <color=red>MANCINIK SALDIRISI!</color>\n\nDüşman surlarımızı dövüyor.\n\nGereken: <color=orange>" + gerekenKaynakMiktari + " Taş</color>"; onarButonu.SetActive(tas >= gerekenKaynakMiktari); if (onarButonText != null) onarButonText.text = "Surları Onar"; if (riskButonText != null) riskButonText.text = "Risk Al"; if (KameraTitreme.instance != null) KameraTitreme.instance.Titret(0.5f, 0.15f); }
         else if (olayTipiZari <= 70) { aktifOlayTipi = "Odun"; gerekenKaynakMiktari = 25; olayText.text = "🏹 <color=red>ATEŞLİ OK YAĞMURU!</color>\n\nAlevli oklar barikatları yaktı!\n\nGereken: <color=orange>25 Odun</color>"; onarButonu.SetActive(odun >= 25); if (onarButonText != null) onarButonText.text = "Barikat Kur"; if (riskButonText != null) riskButonText.text = "Risk Al"; }
         else if (olayTipiZari <= 85) { aktifOlayTipi = "Yemek"; gerekenKaynakMiktari = 30; if (mahzenYapildi) { raporBasliklari.Insert(0, "🛡️ Fareler Engellendi!"); raporMetinleri.Insert(0, "Fareler geldi ama erzaklarımız <color=green>Gizli Mahzen</color>'de olduğu için hiçbir şey yiyemediler!"); olayPaneli.SetActive(false); SiradakiRaporuGoster(); return; } olayText.text = "🐀 <color=red>FARE İSTİLASI!</color>\n\nFareler erzaklara dadandı.\n\nGereken: <color=orange>30 Erzak</color>"; onarButonu.SetActive(yemek >= 30); if (onarButonText != null) onarButonText.text = "Erzak Feda Et"; if (riskButonText != null) riskButonText.text = "Risk Al"; }
-        else { aktifOlayTipi = "HayattaKalanlar"; gerekenKaynakMiktari = 10; olayText.text = "🫂 <color=green>MÜLTECİLER!</color>\n\nBize katılmak istiyorlar.\n\nGereken: <color=orange>10 Erzak</color>"; onarButonu.SetActive(yemek >= 10); if (onarButonText != null) onarButonText.text = "İçeri Al"; if (riskButonText != null) riskButonText.text = "Geri Çevir"; }
+        else { if (sobaYapildi) { aktifOlayTipi = "HayattaKalanlar"; gerekenKaynakMiktari = 10; olayText.text = "🫂 <color=green>MÜLTECİLER!</color>\n\nBize katılmak istiyorlar.\n\nGereken: <color=orange>10 Erzak</color>"; onarButonu.SetActive(yemek >= 10); if (onarButonText != null) onarButonText.text = "İçeri Al"; if (riskButonText != null) riskButonText.text = "Geri Çevir"; } else { aktifOlayTipi = "Dilekce"; gerekenKaynakMiktari = 20; olayText.text = "📜 <color=yellow>ASKERLERİN TALEBİ</color>\n\nKomutanım, gece çok soğuk geçiyor. Yaralılarımız donmak üzere. Ateş yakmak için bize odun izni verin.\n\nGereken: <color=orange>20 Odun</color>"; onarButonu.SetActive(odun >= 20); if (onarButonText != null) onarButonText.text = "Odun Ver"; if (riskButonText != null) riskButonText.text = "Reddet (Moral Düşer)"; } }
     }
 
     public void KesiftenDon(int donenSayisi, string kaynakTipi)
     {
+        if (kaynakTipi == "HaritaKesfi") { bostaAsker += donenSayisi; if (yeniBolgeObjeleri != null) yeniBolgeObjeleri.SetActive(true); if (kesifNoktasiObjesi != null) kesifNoktasiObjesi.SetActive(false); moral += 15; raporBasliklari.Add("🗺️ Yeni Ufuklar!"); raporMetinleri.Add("Keşfe giden askerimiz sağ salim döndü! Sislerin ardında <color=green>yepyeni ve zengin kaynak noktaları</color> keşfetti. Haritamız genişledi!"); return; }
         if (kaynakTipi == "Baskin") { int basariSansi = (komutan == 3) ? 80 : 50; if (Random.Range(1, 101) <= basariSansi) { bostaAsker += donenSayisi; mancinikSaboteTuru += 5; moral += 15; raporBasliklari.Add("🗡️ Kanlı ve Sessiz"); raporMetinleri.Add("Baskın ekibimiz düşman kampına sızdı ve <color=green>mancınıkları ateşe verdi!</color> Sonraki 5 gün mancınık saldırısı olmayacak!"); } else { toplamAsker -= donenSayisi; moral -= 20; raporBasliklari.Add("☠️ İntihar Görevi"); raporMetinleri.Add("Baskın başarısız oldu... Düşman onları fark etti. <color=red>Gönderilen " + donenSayisi + " yiğit askerimizin hepsi öldürüldü.</color>"); if (KameraTitreme.instance != null) KameraTitreme.instance.Titret(0.7f, 0.3f); } return; }
-        int pusuZari = Random.Range(1, 101); if (komutan == 3) pusuZari = 100; string geciciBaslik = ""; string hikayeSonucu = "";
-        if (pusuZari <= 15) { int olen = donenSayisi / 2; if (olen == 0) olen = 1; int yaralanan = donenSayisi - olen; toplamAsker -= olen; yaraliAsker += yaralanan; moral -= 10; geciciBaslik = "⚠️ Pusuya Düştük!"; hikayeSonucu = "<color=red>KÖTÜ HABER:</color> Birliğimiz pusuya düştü. <color=red>" + olen + " asker öldü</color>"; if (yaralanan > 0) hikayeSonucu += ", " + yaralanan + " asker ağır yaralı."; else hikayeSonucu += "."; if (KameraTitreme.instance != null) KameraTitreme.instance.Titret(0.5f, 0.2f); }
-        else { bostaAsker += donenSayisi; if (kaynakTipi == "Gozcu") { geciciBaslik = "👁️ Keşif Raporu"; int bulunanAsker = Random.Range(1, 4); toplamAsker += bulunanAsker; bostaAsker += bulunanAsker; hikayeSonucu = "Gözcülerimiz harabelerde insanlar buldu. <color=green>+" + bulunanAsker + " Asker</color>."; } else { int anaKazanc = Random.Range(1, 101) <= 75 ? Random.Range(40, 60) : Random.Range(60, 81); if (elArabasiAlindi) anaKazanc = Mathf.RoundToInt(anaKazanc * 1.3f); int bonusZar = Random.Range(1, 101); int bonusKazanc = Random.Range(15, 30); if (kaynakTipi == "Tas") { geciciBaslik = "⛏️ Taş Raporu"; tas += anaKazanc; hikayeSonucu = "Döndüler. <color=green>+" + anaKazanc + " Taş</color>."; if (bonusZar <= 30) { yemek += bonusKazanc; hikayeSonucu += "\n\n<color=green>+" + bonusKazanc + " Erzak</color>."; } else if (bonusZar > 30 && bonusZar <= 60) { odun += bonusKazanc; hikayeSonucu += "\n\n<color=green>+" + bonusKazanc + " Odun</color>."; } } else if (kaynakTipi == "Odun") { geciciBaslik = "🌲 Orman Raporu"; odun += anaKazanc; hikayeSonucu = "Döndüler. <color=green>+" + anaKazanc + " Odun</color>."; if (bonusZar <= 30) { yemek += bonusKazanc; hikayeSonucu += "\n\n<color=green>+" + bonusKazanc + " Erzak</color>."; } else if (bonusZar > 30 && bonusZar <= 60) { tas += bonusKazanc; hikayeSonucu += "\n\n<color=green>+" + bonusKazanc + " Taş</color>."; } } else if (kaynakTipi == "Yemek") { geciciBaslik = "🏚️ Köy Raporu"; yemek += anaKazanc; hikayeSonucu = "Döndüler. <color=green>+" + anaKazanc + " Erzak</color>."; if (bonusZar <= 30) { odun += bonusKazanc; hikayeSonucu += "\n\n<color=green>+" + bonusKazanc + " Odun</color>."; } else if (bonusZar > 30 && bonusZar <= 60) { tas += bonusKazanc; hikayeSonucu += "\n\n<color=green>+" + bonusKazanc + " Taş</color>."; } } if (Random.Range(1, 101) <= 20) { int bulunanAltin = Random.Range(5, 16); altin += bulunanAltin; hikayeSonucu += "\n\n<color=#FFD700>ŞANS! +" + bulunanAltin + " Altın!</color>"; moral += 5; } } }
-        raporBasliklari.Add(geciciBaslik); raporMetinleri.Add(hikayeSonucu);
-    }
-    public void AskerKaybet(int kayip) { toplamAsker -= kayip; bostaAsker -= kayip; if (bostaAsker < 0) bostaAsker = 0; if (toplamAsker < 0) toplamAsker = 0; }
-    public void YeniKacakciTeklifiOlustur() { string[] kaynaklar = { "Tas", "Odun", "Yemek" }; teklifEdilenKaynak = kaynaklar[Random.Range(0, 3)]; teklifEdilenMiktar = Random.Range(30, 70); istenenAltin = Random.Range(5, 15); }
-    public void KacakciPaneliniAc() { kacakciPaneli.SetActive(true); kacakciTeklifText.text = "\"Sana <color=green>+" + teklifEdilenMiktar + " " + teklifEdilenKaynak + "</color> getirdik.\nKarşılığında <color=#FFD700>-" + istenenAltin + " Altın</color> istiyoruz.\nAnlaşalım mı?\""; }
-    public void TakasiKabulEt() { if (altin >= istenenAltin) { altin -= istenenAltin; if (teklifEdilenKaynak == "Tas") tas += teklifEdilenMiktar; else if (teklifEdilenKaynak == "Odun") odun += teklifEdilenMiktar; else if (teklifEdilenKaynak == "Yemek") yemek += teklifEdilenMiktar; kacakciPaneli.SetActive(false); kacakciGemisiObje.SetActive(false); EkraniGuncelle(); } else { kacakciTeklifText.text = "<color=red>Yeterli altının yok!</color>"; } }
-    public void TakasiReddet() { kacakciPaneli.SetActive(false); kacakciGemisiObje.SetActive(false); }
-    public void GorevPaneliAc(KaynakNoktasi tiklananNokta) { secilenNokta = tiklananNokta; gorevPaneli.SetActive(true); if (secilenNokta.kaynakTipi == "Tas") gorevBaslikText.text = "⛏️ Taş Ocağı"; else if (secilenNokta.kaynakTipi == "Odun") gorevBaslikText.text = "🌲 Yakın Orman"; else if (secilenNokta.kaynakTipi == "Yemek") gorevBaslikText.text = "🏚️ Köy"; else if (secilenNokta.kaynakTipi == "Gozcu") gorevBaslikText.text = "👁️ Keşif Kolu"; else if (secilenNokta.kaynakTipi == "Baskin") gorevBaslikText.text = "🗡️ Gece Baskını"; if (secilenNokta.islemde == true) { gorevDetayText.text = "Şu an bu bölgede askerlerimiz operasyon yürütüyor.\n\n⏳ Dönüşlerine Kalan Tur: " + secilenNokta.kalanTur; gonderButonu.SetActive(false); } else { string hikaye = ""; if (secilenNokta.kaynakTipi == "Gozcu") hikaye = "Harabelerde hayatta kalan başkaları olabilir. Etrafı araştırıp saflarımıza yeni yoldaşlar katmalıyız."; else if (secilenNokta.kaynakTipi == "Baskin") hikaye = "Düşman uyurken kampa sızıp mancınıkları ateşe vereceğiz. Son derece kanlı ve tehlikeli bir görev!"; else hikaye = "Askerleri gönderip kaynak toplamalıyız."; gorevDetayText.text = "Gereken Asker: " + secilenNokta.gerekenAdam + "\nGörev Süresi: " + secilenNokta.gorevSuresi + " Tur\n\n<i>" + hikaye + "</i>"; gonderButonu.SetActive(true); } }
-    public void PaneliKapat() { gorevPaneli.SetActive(false); }
 
-    public void SonucPaneliniKapat() { SiradakiRaporuGoster(); }
-    public void SiradakiRaporuGoster()
-    {
-        if (oyunBittiMi) return;
-        if (raporBasliklari.Count > 0)
+        bool ilkKezMiGidiyor = false;
+        if (kaynakTipi == "Tas" && !ilkTasKesfi) { ilkKezMiGidiyor = true; ilkTasKesfi = true; }
+        else if (kaynakTipi == "Odun" && !ilkOdunKesfi) { ilkKezMiGidiyor = true; ilkOdunKesfi = true; }
+        else if (kaynakTipi == "Yemek" && !ilkYemekKesfi) { ilkKezMiGidiyor = true; ilkYemekKesfi = true; }
+        else if (kaynakTipi == "Gozcu" && !ilkGozcuKesfi) { ilkKezMiGidiyor = true; ilkGozcuKesfi = true; }
+        else if (kaynakTipi == "DemirMadeni" && !ilkDemirKesfi) { ilkKezMiGidiyor = true; ilkDemirKesfi = true; }
+
+        int pusuZari = Random.Range(1, 101);
+        if (komutan == 3 || ilkKezMiGidiyor) pusuZari = 100;
+
+        string geciciBaslik = ""; string hikayeSonucu = "";
+        if (pusuZari <= 15)
         {
-            sonucBaslikText.text = raporBasliklari[0]; sonucDetayText.text = raporMetinleri[0]; raporBasliklari.RemoveAt(0); raporMetinleri.RemoveAt(0); sonucPaneli.SetActive(true);
+            int olen = donenSayisi / 2; if (olen == 0) olen = 1;
+            if (zirhliBirliklerAlindi) { olen /= 2; }
+            int yaralanan = donenSayisi - olen; toplamAsker -= olen; yaraliAsker += yaralanan; moral -= 10;
+            geciciBaslik = "⚠️ Pusuya Düştük!"; hikayeSonucu = "<color=red>KÖTÜ HABER:</color> Birliğimiz pusuya düştü. ";
+            if (olen > 0) hikayeSonucu += "<color=red>" + olen + " asker öldü</color>"; else hikayeSonucu += "Zırhlarımız sayesinde ölümden döndük";
+            if (yaralanan > 0) hikayeSonucu += ", " + yaralanan + " asker ağır yaralı."; else hikayeSonucu += "."; if (KameraTitreme.instance != null) KameraTitreme.instance.Titret(0.5f, 0.2f);
         }
         else
         {
-            sonucPaneli.SetActive(false);
-            if (bekleyenKararSayisi > 0) GunlukKararGoster();
+            bostaAsker += donenSayisi;
+            if (kaynakTipi == "Gozcu") { geciciBaslik = "👁️ Keşif Raporu"; int bulunanAsker = Random.Range(1, 4); toplamAsker += bulunanAsker; bostaAsker += bulunanAsker; hikayeSonucu = "Gözcülerimiz harabelerde insanlar buldu. <color=green>+" + bulunanAsker + " Asker</color>."; }
+            else
+            {
+                // YENİ: Normal kaynaklar yarı yarıya düşürüldü ki oyun zorlaşsın
+                int anaKazanc = Random.Range(1, 101) <= 75 ? Random.Range(20, 35) : Random.Range(35, 50);
+                if (elArabasiAlindi) anaKazanc = Mathf.RoundToInt(anaKazanc * 1.3f); int bonusZar = Random.Range(1, 101); int bonusKazanc = Random.Range(10, 20);
+
+                // YENİ: Demir çok daha az çıkıyor (10-20) ve bol taş getiriyor
+                if (kaynakTipi == "DemirMadeni")
+                {
+                    geciciBaslik = "⛓️ Demir Madeni";
+                    int cikanDemir = Random.Range(10, 21);
+                    int cikanTas = Random.Range(20, 31);
+                    if (elArabasiAlindi) { cikanDemir = Mathf.RoundToInt(cikanDemir * 1.3f); cikanTas = Mathf.RoundToInt(cikanTas * 1.3f); }
+                    demir += cikanDemir; tas += cikanTas;
+                    hikayeSonucu = "Döndüler. Madenin derinliklerinden <color=green>+" + cikanDemir + " Demir ve +" + cikanTas + " Taş</color> çıkardılar.";
+                    if (bonusZar <= 40) { altin += 5; hikayeSonucu += "\n\n<color=#FFD700>+5 Altın buldular!</color>"; }
+                }
+                else if (kaynakTipi == "Tas") { geciciBaslik = "⛏️ Taş Raporu"; tas += anaKazanc; hikayeSonucu = "Döndüler. <color=green>+" + anaKazanc + " Taş</color>."; if (bonusZar <= 30) { yemek += bonusKazanc; hikayeSonucu += "\n\n<color=green>+" + bonusKazanc + " Erzak</color>."; } else if (bonusZar > 30 && bonusZar <= 60) { odun += bonusKazanc; hikayeSonucu += "\n\n<color=green>+" + bonusKazanc + " Odun</color>."; } } else if (kaynakTipi == "Odun") { geciciBaslik = "🌲 Orman Raporu"; odun += anaKazanc; hikayeSonucu = "Döndüler. <color=green>+" + anaKazanc + " Odun</color>."; if (bonusZar <= 30) { yemek += bonusKazanc; hikayeSonucu += "\n\n<color=green>+" + bonusKazanc + " Erzak</color>."; } else if (bonusZar > 30 && bonusZar <= 60) { tas += bonusKazanc; hikayeSonucu += "\n\n<color=green>+" + bonusKazanc + " Taş</color>."; } } else if (kaynakTipi == "Yemek") { geciciBaslik = "🏚️ Köy Raporu"; yemek += anaKazanc; hikayeSonucu = "Döndüler. <color=green>+" + anaKazanc + " Erzak</color>."; if (bonusZar <= 30) { odun += bonusKazanc; hikayeSonucu += "\n\n<color=green>+" + bonusKazanc + " Odun</color>."; } else if (bonusZar > 30 && bonusZar <= 60) { tas += bonusKazanc; hikayeSonucu += "\n\n<color=green>+" + bonusKazanc + " Taş</color>."; } }
+                if (Random.Range(1, 101) <= 20) { int bulunanAltin = Random.Range(5, 16); altin += bulunanAltin; hikayeSonucu += "\n\n<color=#FFD700>ŞANS! +" + bulunanAltin + " Altın!</color>"; moral += 5; }
+            }
         }
+        raporBasliklari.Add(geciciBaslik); raporMetinleri.Add(hikayeSonucu);
+    }
+    public void AskerKaybet(int kayip) { toplamAsker -= kayip; bostaAsker -= kayip; if (bostaAsker < 0) bostaAsker = 0; if (toplamAsker < 0) toplamAsker = 0; }
+    public void YeniKacakciTeklifiOlustur()
+    {
+        // 1. ARZ-TALEP HESAPLAMASI (Hangi kaynak azsa, çıkma ihtimali o kadar artar)
+        int tasAgirligi = 100 - tas;
+        int odunAgirligi = 100 - odun;
+        int yemekAgirligi = 100 - yemek;
+
+        // Ağırlıkların eksiye düşmesini engelliyoruz (Her kaynağın minimum %10 şansı hep vardır)
+        tasAgirligi = Mathf.Max(tasAgirligi, 10);
+        odunAgirligi = Mathf.Max(odunAgirligi, 10);
+        yemekAgirligi = Mathf.Max(yemekAgirligi, 10);
+
+        // 2. KRİZ DURUMU (Eğer bir kaynak 20'nin altındaysa, tüccar kıtlığı fark eder ve o malı getirir)
+        if (tas < 20) tasAgirligi += 100;
+        if (odun < 20) odunAgirligi += 100;
+        if (yemek < 20) yemekAgirligi += 100;
+
+        // 3. AĞIRLIKLI RASTGELE SEÇİM (Zar atma sistemi)
+        int toplamAgirlik = tasAgirligi + odunAgirligi + yemekAgirligi;
+        int rastgeleSecim = Random.Range(0, toplamAgirlik);
+
+        if (rastgeleSecim < tasAgirligi)
+        {
+            teklifEdilenKaynak = "Tas";
+        }
+        else if (rastgeleSecim < tasAgirligi + odunAgirligi)
+        {
+            teklifEdilenKaynak = "Odun";
+        }
+        else
+        {
+            teklifEdilenKaynak = "Yemek";
+        }
+
+        // 4. ZORLU VE DENGELİ FİYATLANDIRMA
+        // Kaçakçı en az 20, en fazla 30 birim mal getirecek (31 dahil değil)
+        teklifEdilenMiktar = Random.Range(20, 31);
+
+        // 5 birim mala karşılık 3 altın isteyecek şekilde hesaplama
+        istenenAltin = Mathf.RoundToInt((teklifEdilenMiktar / 5f) * 3f);
+    }
+    public void KacakciPaneliniAc() { kacakciPaneli.SetActive(true); kacakciTeklifText.text = "\"Sana <color=green>+" + teklifEdilenMiktar + " " + teklifEdilenKaynak + "</color> getirdik.\nKarşılığında <color=#FFD700>-" + istenenAltin + " Altın</color> istiyoruz.\nAnlaşalım mı?\""; }
+    public void TakasiKabulEt() { if (altin >= istenenAltin) { altin -= istenenAltin; if (teklifEdilenKaynak == "Tas") tas += teklifEdilenMiktar; else if (teklifEdilenKaynak == "Odun") odun += teklifEdilenMiktar; else if (teklifEdilenKaynak == "Yemek") yemek += teklifEdilenMiktar; kacakciPaneli.SetActive(false); kacakciGemisiObje.SetActive(false); EkraniGuncelle(); } else { kacakciTeklifText.text = "<color=red>Yeterli altının yok!</color>"; } }
+    public void TakasiReddet() { kacakciPaneli.SetActive(false); kacakciGemisiObje.SetActive(false); }
+
+    public void GorevPaneliAc(KaynakNoktasi tiklananNokta)
+    {
+        secilenNokta = tiklananNokta; gorevPaneli.SetActive(true);
+        if (secilenNokta.kaynakTipi == "Tas") gorevBaslikText.text = "⛏️ Taş Ocağı"; else if (secilenNokta.kaynakTipi == "Odun") gorevBaslikText.text = "🌲 Yakın Orman"; else if (secilenNokta.kaynakTipi == "Yemek") gorevBaslikText.text = "🏚️ Köy"; else if (secilenNokta.kaynakTipi == "Gozcu") gorevBaslikText.text = "👁️ Keşif Kolu"; else if (secilenNokta.kaynakTipi == "Baskin") gorevBaslikText.text = "🗡️ Gece Baskını"; else if (secilenNokta.kaynakTipi == "HaritaKesfi") gorevBaslikText.text = "🗺️ Bilinmeyen Topraklar"; else if (secilenNokta.kaynakTipi == "DemirMadeni") gorevBaslikText.text = "⛓️ Demir Madeni";
+
+        if (secilenNokta.islemde == true) { gorevDetayText.text = "Şu an bu bölgede askerlerimiz operasyon yürütüyor.\n\n⏳ Dönüşlerine Kalan Tur: " + secilenNokta.kalanTur; gonderButonu.SetActive(false); } else { string hikaye = ""; if (secilenNokta.kaynakTipi == "Gozcu") hikaye = "Harabelerde hayatta kalan başkaları olabilir. Etrafı araştırıp saflarımıza yeni yoldaşlar katmalıyız."; else if (secilenNokta.kaynakTipi == "Baskin") hikaye = "Düşman uyurken kampa sızıp mancınıkları ateşe vereceğiz. Son derece kanlı ve tehlikeli bir görev!"; else if (secilenNokta.kaynakTipi == "HaritaKesfi") hikaye = "Bu sisli bölgenin ardında ne olduğunu bilmiyoruz. Haritayı genişletmesi için bir askerimizi yollayalım."; else if (secilenNokta.kaynakTipi == "DemirMadeni") hikaye = "Zırh ve silah dövmek için hayati bir maden. Derinliklere asker yollamalıyız."; else hikaye = "Askerleri gönderip kaynak toplamalıyız."; gorevDetayText.text = "Gereken Asker: " + secilenNokta.gerekenAdam + "\nGörev Süresi: " + secilenNokta.gorevSuresi + " Tur\n\n<i>" + hikaye + "</i>"; gonderButonu.SetActive(true); }
     }
 
+    public void PaneliKapat() { gorevPaneli.SetActive(false); }
+    public void SonucPaneliniKapat() { SiradakiRaporuGoster(); }
+    public void SiradakiRaporuGoster() { if (oyunBittiMi) return; if (raporBasliklari.Count > 0) { sonucBaslikText.text = raporBasliklari[0]; sonucDetayText.text = raporMetinleri[0]; raporBasliklari.RemoveAt(0); raporMetinleri.RemoveAt(0); sonucPaneli.SetActive(true); } else { sonucPaneli.SetActive(false); if (bekleyenKararSayisi > 0) GunlukKararGoster(); } }
     public void GoreveOnayVer() { if (secilenNokta != null && secilenNokta.islemde == false) { if (bostaAsker >= secilenNokta.gerekenAdam) { bostaAsker -= secilenNokta.gerekenAdam; secilenNokta.GoreviBaslat(); EkraniGuncelle(); PaneliKapat(); } else gorevDetayText.text = "<color=red>Yeterli boşta askerin yok!</color>"; } }
-    public void EkraniGuncelle() { if (kaynakTexti != null) kaynakTexti.text = "📅 Gün: " + turSayisi + "  |  ❤️ Moral: " + moral + "  |  ⚔️ Asker: " + bostaAsker + "/" + toplamAsker + " (<color=red>Yaralı: " + yaraliAsker + "</color>)  |  🍞 Yemek: " + yemek + "  |  🪵 Odun: " + odun + "  |  🧱 Taş: " + tas + "  |  💰 Altın: " + altin; }
+    public void EkraniGuncelle() { if (kaynakTexti != null) kaynakTexti.text = "📅 Gün: " + turSayisi + "  |  ❤️ Moral: " + moral + "  |  ⚔️ Asker: " + bostaAsker + "/" + toplamAsker + " (<color=red>Yaralı: " + yaraliAsker + "</color>)  |  🍞 Yemek: " + yemek + "  |  🪵 Odun: " + odun + "  |  🧱 Taş: " + tas + "  |  ⛓️ Demir: " + demir + "  |  💰 Altın: " + altin; }
 }
