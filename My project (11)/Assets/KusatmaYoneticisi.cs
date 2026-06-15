@@ -20,6 +20,10 @@ public class KusatmaYoneticisi : MonoBehaviour
     public int altin = 20;
     public int demir = 0;
 
+    [Header("Görsel Efektler")]
+    public Light gunesIsigi; // Sahnendeki Directional Light
+    public float gecisSuresi = 1.0f; // Gece-gündüz animasyonunun saniyesi
+
     [Header("Kıtlık Sayaçları (YENİ)")]
     public int yemekSifirGun = 0;
     public int odunSifirGun = 0;
@@ -52,7 +56,14 @@ public class KusatmaYoneticisi : MonoBehaviour
     public GameObject kesifNoktasiObjesi;
 
     [Header("Arayüz (UI) Bağlantıları")]
-    public TextMeshProUGUI kaynakTexti;
+    public TextMeshProUGUI gunText;
+    public TextMeshProUGUI moralText;
+    public TextMeshProUGUI askerText;
+    public TextMeshProUGUI yemekText;
+    public TextMeshProUGUI odunText;
+    public TextMeshProUGUI tasText;
+    public TextMeshProUGUI demirText;
+    public TextMeshProUGUI altinText;
 
     [Header("UI Panelleri")]
     public GameObject anaMenuPaneli;
@@ -130,12 +141,48 @@ public class KusatmaYoneticisi : MonoBehaviour
         if (anaMenuPaneli != null && anaMenuPaneli.activeSelf) return;
         if (komutanPaneli != null && komutanPaneli.activeSelf) return;
         if (gorevPaneli.activeSelf || sonucPaneli.activeSelf || kacakciPaneli.activeSelf || olayPaneli.activeSelf || atolyePaneli.activeSelf) return;
+
+        // YENİ: Tayin panelini direkt açmak yerine önce güneş efektini başlatıyoruz
+        StartCoroutine(GunGecisiVePanelAc());
+    }
+
+    // YENİ: Önce güneşi döndüren, bitince paneli açan animasyon kodu
+    private System.Collections.IEnumerator GunGecisiVePanelAc()
+    {
+        if (gunesIsigi != null)
+        {
+            float gecenSure = 0f;
+            Vector3 baslangicAcisi = gunesIsigi.transform.eulerAngles;
+            Vector3 hedefAci = baslangicAcisi + new Vector3(360f, 0f, 0f);
+
+            while (gecenSure < gecisSuresi)
+            {
+                gecenSure += Time.deltaTime;
+                float t = gecenSure / gecisSuresi;
+                float smoothT = t * t * (3f - 2f * t);
+
+                gunesIsigi.transform.eulerAngles = Vector3.Lerp(baslangicAcisi, hedefAci, smoothT);
+                yield return null;
+            }
+
+            gunesIsigi.transform.eulerAngles = baslangicAcisi;
+        }
+
+        // Efekt tamamen bittikten sonra Tayin (Yemek) panelini ekrana getir
         tayinPaneli.SetActive(true);
     }
 
+    // YENİ: Efekt zaten oynandığı için seçim yapıldığında direkt işlemleri çalıştırır
     public void TayinSec(int secim)
     {
-        tayinPaneli.SetActive(false); turSayisi++;
+        tayinPaneli.SetActive(false);
+        GunSonuIslemleriniYap(secim);
+    }
+
+    // 3. Senin eski TayinSec metodunun isim değiştirmiş hali (Tüm kaynak hesaplamaları burada)
+    private void GunSonuIslemleriniYap(int secim)
+    {
+        turSayisi++;
         bekleyenKararSayisi = Random.Range(1, 3);
 
         // YENİ: PASİF KAYNAK TÜKETİMİ (Her gün harcanır)
@@ -472,5 +519,15 @@ public class KusatmaYoneticisi : MonoBehaviour
     }
     public void SiradakiRaporuGoster() { if (oyunBittiMi) return; if (raporBasliklari.Count > 0) { sonucBaslikText.text = raporBasliklari[0]; sonucDetayText.text = raporMetinleri[0]; raporBasliklari.RemoveAt(0); raporMetinleri.RemoveAt(0); sonucPaneli.SetActive(true); } else { sonucPaneli.SetActive(false); if (bekleyenKararSayisi > 0) GunlukKararGoster(); } }
     public void GoreveOnayVer() { if (secilenNokta != null && secilenNokta.islemde == false) { if (bostaAsker >= secilenNokta.gerekenAdam) { bostaAsker -= secilenNokta.gerekenAdam; secilenNokta.GoreviBaslat(); EkraniGuncelle(); PaneliKapat(); } else gorevDetayText.text = "<color=red>Yeterli boşta askerin yok!</color>"; } }
-    public void EkraniGuncelle() { if (kaynakTexti != null) kaynakTexti.text = "📅 Gün: " + turSayisi + "  |  ❤️ Moral: " + moral + "  |  ⚔️ Asker: " + bostaAsker + "/" + toplamAsker + " (<color=red>Yaralı: " + yaraliAsker + "</color>)  |  🍞 Yemek: " + yemek + "  |  🪵 Odun: " + odun + "  |  🧱 Taş: " + tas + "  |  ⛓️ Demir: " + demir + "  |  💰 Altın: " + altin; }
+    public void EkraniGuncelle()
+    {
+        if (gunText != null) gunText.text = "Gün: " + turSayisi.ToString();
+        if (moralText != null) moralText.text = "Moral: %" + moral.ToString();
+        if (askerText != null) askerText.text = "Asker: " + bostaAsker + "/" + toplamAsker + " <color=red>(" + yaraliAsker + ")</color>";
+        if (yemekText != null) yemekText.text = "Yemek: " + yemek.ToString();
+        if (odunText != null) odunText.text = "Odun: " + odun.ToString();
+        if (tasText != null) tasText.text = "Taş: " + tas.ToString();
+        if (demirText != null) demirText.text = "Demir: " + demir.ToString();
+        if (altinText != null) altinText.text = "Altın: " + altin.ToString();
+    }
 }
